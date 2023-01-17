@@ -1,14 +1,7 @@
 # This script will go over python files in specific paths and generate shell wrappers for all none private functions
-# to allow autocomplition
-import os
-from os import getenv, environ, listdir, system
-from sys import stdin
-# import stdin read
-from sys import stdin
 
-# WRAP_FUNCTION_PATH="/Users/kcw/Github/pythonToShellWrapper/functions"
-# WRAP_LOADER_PATH="/Users/kcw/Github/pythonToShellWrapper/loaders"
-# WRAP_OUTPUT_PATH="/Users/kcw/Github/pythonToShellWrapper/wrappers"
+from os import getenv, environ, listdir, system
+
 environ[
     "WRAP_FUNCTION_PATH"] = "/Users/kcw/Github/pythonToShellWrapper/functions:/Users/kcw/Github/pythonToShellWrapper/functions2"
 environ["WRAP_LOADER_PATH"] = "/Users/kcw/Github/pythonToShellWrapper/loaders"
