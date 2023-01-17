@@ -22,6 +22,10 @@ functions = [fun for fun in inspect.getmembers(foo, inspect.isfunction) if
 
 print(functions)
 output_path = sys.argv[2]
+clean_old_files = getenv("WRAP_CLEAN_OUTPUT_BEFORE_GEN", "true").lower() == "true"
+if clean_old_files:
+    print("Cleaning old files")
+    system(f"rm {output_path}/*")
 # write sh file for each function
 for function in functions:
     function_name = function[0]
