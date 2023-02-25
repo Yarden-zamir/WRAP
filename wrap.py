@@ -32,7 +32,7 @@ class wrap:
     ):
 
         flat_file_list = [Path(f"{path}/{file}") for path in input_path.split(":") for file in listdir(path)]
-        flat_loader_list = [Path(f"{path}/{file}") for path in processor_path.split(":") for file in (listdir(path) if isdir(path) else [path])]
+        flat_loader_list = [Path(f"{path}/{file}") for path in processor_path.split(":") for file in listdir(path)]
         print(flat_file_list) if debug_mode else None
         print(flat_loader_list) if debug_mode else None
         # map the loaders to the files based on the file name
@@ -45,12 +45,12 @@ class wrap:
         # clean output path
         if clean_output_path:
             print("Cleaning old files") if debug_mode else None
-            system(f"rm {output_path}/*")
+            system(f"rm {output_path}/* || true")
 
         # run the loaders on the files
         for file, loader in loader_map.items():
             print(f"Running {loader} on {file}") if debug_mode else None
-            system(f"chmod +x {loader}")
+            system(f"chmod +x {loader} || true")
             system(f"{loader} {file} {output_path} {'--debug_mode' if debug_mode else ''}")
 
 call(wrap)
