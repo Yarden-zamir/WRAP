@@ -28,10 +28,17 @@ def generic_argparse_processor(file, output_path, debug_mode: bool = False):
     functions = [fun for fun in inspect.getmembers(foo, inspect.isfunction) if
                  not fun[0].startswith("_") and not fun[1].__module__.startswith("builtins")]
 
-    print(functions) if debug_mode else None
+    # get all classes in module
+    classes = [cls for cls in inspect.getmembers(foo, inspect.isclass)]
 
-    # write sh file for each function
-    for function in functions:
+    wrappables = functions + classes
+    print(functions) if debug_mode else None
+    print(classes) if debug_mode else None
+
+    # write file for each function or class
+    # for cls in classes:
+    #     pass
+    for function in wrappables:
         function_name = function[0]
         print(function) if debug_mode else None
         Path(output_path).mkdir(parents=True, exist_ok=True)
@@ -59,7 +66,7 @@ if value: print(value)
 def _help(function, param):
     default = f"(default: {param.default})" if param.default != inspect.Parameter.empty else ""
     function_doc = [doc for doc in function.__doc__.split(":param") if param.name in doc] if function.__doc__ else []
-    doc_string = function_doc[0].split(":")[1].strip() if function_doc else ""
+    doc_string = function_doc[0].split(":")[1].strip() if len(function_doc) > 1 else ""
     return f"{doc_string} {default}"
 
 
@@ -84,7 +91,7 @@ def _required(param, function):
                 _is_first_parameter(param, function) or "**" not in str(function.__name__)) else False
 
 
-def call(function):
+def _call_function(function):
     parser = argparse.ArgumentParser(prog=function.__name__, description=function.__doc__)
     for param in inspect.signature(function).parameters.values():
         # if first argument then add it as positional
@@ -119,6 +126,51 @@ def call(function):
     args = {k: v for k, v in args.items() if v is not inspect.Parameter.empty and v is not None}
     return function(**args)
 
+def _call_class(cls):
+    # using subparsers
+    parser = argparse.ArgumentParser(prog=cls.__name__, description=cls.__doc__)
+    subparsers = parser.add_subparsers(help='sub-command help')
+    for method in [method for method in dir(cls) if method.startswith('__') is False]:
+        method = getattr(cls, method)
+        subparser = subparsers.add_parser(method.__name__, help=method.__doc__)
+        for param in inspect.signature(method).parameters.values():
+            # if first argument then add it as positional
+            if _is_positional(param, method):
+                subparser.add_argument(
+                    f"{param.name}",
+                    default=param.default if param.default != inspect.Parameter.empty else None,
+                    type=_type(param),
+                    nargs=argparse.OPTIONAL if not _required(param, method) else argparse.ZERO_OR_MORE,
+                    help=_help(method, param),
+                    metavar=f"{param.name} {_type(param, to_string=True)}"
+                )
+            else:
+                subparser.add_argument(
+                    f"--{param.name}",
+                    default=param.default if param.default != inspect.Parameter.empty else None,
+                    type=_type(param),
+                    required=_required(param, method),
+                    help=_help(method, param),
+                    metavar=_type(param, to_string=True)
+                )
+        subparser.set_defaults(func=method)
+
+    try:
+        argcomplete.autocomplete(parser)
+    except NameError:
+        pass
+
+    args = parser.parse_args()
+    args = vars(args)
+    args = {k: v for k, v in args.items() if v is not inspect.Parameter.empty and v is not None}
+    # remove func from args
+    func = args["func"] if "func" in args else None
+    args.pop("func", None)
+    return func(**args) if func else parser.print_help()
+
+def call(command):
+    if inspect.isfunction(command): _call_function(command)
+    elif inspect.isclass(command): _call_class(command)
 
 if __name__ == "__main__":
     call(generic_argparse_processor)

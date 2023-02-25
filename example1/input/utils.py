@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 from os import system
 from rich.traceback import install
-install(show_locals=True)
+# suppress self
+install(show_locals=False, extra_lines=0, )
 def give_cheese(person, amount: int = 0, cheese_type: str = "cheddar", should_give: bool = False, am_I_a_good_person= False, how_much_to_take_away:int = 0) -> object:
     """
     Give cheese to someone
@@ -27,3 +28,15 @@ def list_issues(repo=""):
 
 def withargs(arg1, arg2):
     return f"{arg1} and also {arg2}"
+
+class big:
+    def bigger(num):
+        """
+        Make a number bigger
+        """
+        print(num)
+    def smaller(num):
+        """
+        Make a number smaller
+        """
+        print(num)
