@@ -2,7 +2,7 @@ name: Update Formula
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   update:
