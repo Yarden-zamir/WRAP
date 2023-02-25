@@ -3,6 +3,7 @@
 from os import getenv, environ, listdir, system
 from os.path import splitext, isdir
 from pathlib import Path
+from shutil import which
 from sys import argv
 
 from base_processors.generic_argparse_processor import call
@@ -11,7 +12,8 @@ from base_processors.generic_argparse_processor import call
 class wrap:
 
     @staticmethod
-    def install(wrap_folder:str = "~/.wrap", install_to_zshrc:bool = True, install_to_bashrc:bool = False, install_to_fishrc:bool = False):
+    def install(wrap_folder: str = "~/.wrap", install_to_zshrc: bool = True, install_to_bashrc: bool = False,
+                install_to_fishrc: bool = False):
         """
         Installs a default configuration for wrap using the base processors
         and some sensible defaults (wrap can be used without this)
@@ -19,21 +21,22 @@ class wrap:
         # create wrap folder
         wrap_folder_path = Path(wrap_folder).expanduser().resolve()
         wrap_folder_path.mkdir(parents=True, exist_ok=True)
-        # create wrap init file
-
+        Path(f"{wrap_folder_path}/input").mkdir(parents=True, exist_ok=True)
+        Path(f"{wrap_folder_path}/output").mkdir(parents=True, exist_ok=True)
 
     @staticmethod
     def gen(
-            input_path: str,
-            output_path: str,
-            processor_path: str,
+            input_path: str = str(Path("~/.wrap/input").expanduser().resolve()),
+            output_path: str = str(Path("~/.wrap/output").expanduser().resolve()),
+            processor_path: str = str(which("wrap_generic_argparse_processor.py")),
             clean_output_path: bool = True,
             debug_mode: bool = False,
     ):
 
         flat_file_list = [Path(f"{path}/{file}") for path in input_path.split(":") for file in listdir(path)]
         flat_loader_list = [Path(path) for path in processor_path.split(":") if not isdir(path)]
-        flat_loader_list += [Path(f"{path}/{file}") for path in processor_path.split(":") for file in (listdir(path) if isdir(path) else [])]
+        flat_loader_list += [Path(f"{path}/{file}") for path in processor_path.split(":") for file in
+                             (listdir(path) if isdir(path) else [])]
         print(flat_file_list) if debug_mode else None
         print(flat_loader_list) if debug_mode else None
         # map the loaders to the files based on the file name
@@ -46,12 +49,13 @@ class wrap:
         # clean output path
         if clean_output_path:
             print("Cleaning old files") if debug_mode else None
-            system(f"rm {output_path}/* || true")
+            system(f"rm {output_path}/* 2> /dev/null || true")
 
         # run the loaders on the files
         for file, loader in loader_map.items():
             print(f"Running {loader} on {file}") if debug_mode else None
             system(f"chmod +x {loader} || true")
             system(f"{loader} {file} {output_path} {'--debug_mode' if debug_mode else ''}")
+
 
 call(wrap)
