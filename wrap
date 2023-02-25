@@ -10,6 +10,7 @@ from example1.processors.generic_argparse_processor import call
 
 
 class wrap:
+    @staticmethod
     def gen(
             input_path: str = getenv("WRAP_INPUT_PATH", ""),
             output_path: str = getenv("WRAP_OUTPUT_PATH", ""),
