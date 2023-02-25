@@ -39,8 +39,4 @@ class wrap:
             system(f"chmod +x {loader}")
             system(f"{loader} {file} {output_path} {'--debug_mode' if debug_mode else ''}")
 
-        print(
-            f"Make sure that {output_path} is in your path, eg: export PATH={output_path}:$PATH") if debug_mode else None
-
-
 call(wrap)
