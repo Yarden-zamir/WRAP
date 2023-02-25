@@ -21,8 +21,7 @@ jobs:
             "python@3.10"
           install: |
             bin.install "wrap.py" => "wrap"
-            FileUtils.cp_r "base_processors/generic_argparse_processor.py", "wrap_generic_argparse_processor"
-            bin.install "wrap_generic_argparse_processor"
+            bin.install "base_processors/generic_argparse_processor.py" => "wrap_generic_argparse_processor"
             bin.install "base_processors"
           # Adds URL and checksum targets for different OS and architecture pairs. Using this option assumes
           # a tar archive exists on your GitHub repo with the following URL pattern (this cannot be customized):
