@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import inspect
+import shutil
 import sys
 import importlib.util
 from os import system, getenv
@@ -51,6 +52,7 @@ from sys import path
 path.append("{Path(file).parent}") 
 # add this file to path
 path.append("{Path(__file__).parent}")
+path.append("{shutil.which('wrap_generic_argparse_processor.py')}")
 from {file.split('/')[-1].removesuffix(".py")} import *
 from generic_argparse_processor import call
 
