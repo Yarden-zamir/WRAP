@@ -41,7 +41,7 @@ jobs:
             FileUtils.cp_r "base_processors/generic_argparse_processor.py", "wrap_generic_argparse_processor.py"
             bin.install "wrap_generic_argparse_processor.py"
             bin.install "base_processors"
-            bin.install example1/input
+            bin.install "example1/input"
           # Adds URL and checksum targets for different OS and architecture pairs. Using this option assumes
           # a tar archive exists on your GitHub repo with the following URL pattern (this cannot be customized):
           # https://github.com/{GITHUB_OWNER}/{REPO_NAME}/releases/download/{TAG}/{REPO_NAME}-{VERSION}-{OPERATING_SYSTEM}-{ARCHITECTURE}.tar.gz'
