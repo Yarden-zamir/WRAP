@@ -5,8 +5,7 @@ from os.path import splitext
 from pathlib import Path
 from sys import argv
 
-from example1.processors.generic_argparse_processor import call
-
+from base_processors.generic_argparse_processor import call
 
 
 class wrap:
