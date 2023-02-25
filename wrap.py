@@ -32,7 +32,8 @@ class wrap:
     ):
 
         flat_file_list = [Path(f"{path}/{file}") for path in input_path.split(":") for file in listdir(path)]
-        flat_loader_list = [Path(f"{path}/{file}") for path in processor_path.split(":") for file in listdir(path)]
+        flat_loader_list = [Path(path) for path in processor_path.split(":") if not isdir(path)]
+        flat_loader_list += [Path(f"{path}/{file}") for path in processor_path.split(":") for file in (listdir(path) if isdir(path) else [])]
         print(flat_file_list) if debug_mode else None
         print(flat_loader_list) if debug_mode else None
         # map the loaders to the files based on the file name
