@@ -9,7 +9,6 @@ wrap \
     --processor_path {processor_path} \
     --clean_output_path True
 ```
-to generate wraps from input files using processors.
 
 ## Terminology
 - input folder
