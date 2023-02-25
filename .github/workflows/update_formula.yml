@@ -17,9 +17,8 @@ jobs:
           github_token: ${{ secrets.TOKEN }}
           commit_owner: Yarden-zamir
           commit_email: dev@yarden-zamir.com
-          #          depends_on: |
-          #            "bash" => :build
-          #            "gcc"
+          depends_on: |
+            python@3.10
           install: |
             bin.install "wrap.py" => "wrap"
             bin.install "base_processors"
