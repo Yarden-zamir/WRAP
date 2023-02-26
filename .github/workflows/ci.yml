@@ -42,12 +42,10 @@ jobs:
             bin.install "wrap_generic_argparse_processor.py"
             bin.install "base_processors"
             bin.install "example1/input"
-          # Adds URL and checksum targets for different OS and architecture pairs. Using this option assumes
-          # a tar archive exists on your GitHub repo with the following URL pattern (this cannot be customized):
+
           # https://github.com/{GITHUB_OWNER}/{REPO_NAME}/releases/download/{TAG}/{REPO_NAME}-{VERSION}-{OPERATING_SYSTEM}-{ARCHITECTURE}.tar.gz'
           # Darwin AMD pre-existing path example: https://github.com/justintime50/myrepo/releases/download/v1.2.0/myrepo-1.2.0-darwin-amd64.tar.gz
           # Linux ARM pre-existing path example: https://github.com/justintime50/myrepo/releases/download/v1.2.0/myrepo-1.2.0-linux-arm64.tar.gz
-          # Optional - booleans
           target_darwin_amd64: false
           target_darwin_arm64: false
           target_linux_amd64: false
@@ -55,10 +53,5 @@ jobs:
 
           update_readme_table: true
 
-          # Skips committing the generated formula to a homebrew tap (useful for local testing).
-          # Default is shown - boolean
           skip_commit: false
-
-          # Logs debugging info to console.
-          # Default is shown - boolean
           debug: true
