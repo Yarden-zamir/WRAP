@@ -38,7 +38,8 @@ jobs:
           "python@3.11"
         install: |
           virtualenv_install_with_resources
-          bin.install "wrap"
+          libexec.install Dir["*"]
+          bin.write_exec_script libexec/"wrap"
 
         # https://github.com/{GITHUB_OWNER}/{REPO_NAME}/releases/download/{TAG}/{REPO_NAME}-{VERSION}-{OPERATING_SYSTEM}-{ARCHITECTURE}.tar.gz'
         # Darwin AMD pre-existing path example: https://github.com/justintime50/myrepo/releases/download/v1.2.0/myrepo-1.2.0-darwin-amd64.tar.gz
