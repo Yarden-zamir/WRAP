@@ -37,6 +37,7 @@ jobs:
         depends_on: |
           "python@3.11"
         install: |
+          virtualenv_install_with_resources
           bin.install "wrap"
 
         # https://github.com/{GITHUB_OWNER}/{REPO_NAME}/releases/download/{TAG}/{REPO_NAME}-{VERSION}-{OPERATING_SYSTEM}-{ARCHITECTURE}.tar.gz'
