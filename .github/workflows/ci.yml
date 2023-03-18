@@ -39,12 +39,6 @@ jobs:
         install:             |
                              python = "python3.11"
                              venv = virtualenv_create(libexec, python.delete("@"))
-#                             venv.instance_variable_get(:@formula).system venv.instance_variable_get(:@venv_root)/"bin/pip", "install",
-#                                             "-v", "--no-deps",
-#                                             "--ignore-installed",
-#                                             "--upgrade",
-#                                             "--force-reinstall",
-#                                             "pip<19"
                              venv.pip_install resources
                              venv.pip_install_and_link buildpath
                              venv
