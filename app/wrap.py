@@ -74,13 +74,6 @@ class wrap:
         except FileNotFoundError:
             raise FileNotFoundError("Input path or processor path not found")
 
-        # map the loaders to the files based on the file name
-        # file format is <name>.<source_format>_<target_format>.<extension>
-        for loader in flat_loader_list:
-            # parse get resut as utf-8 string
-
-            print(subprocess.check_output([f"{loader}", "get-input-formats"]).decode(sys.stdout.encoding).strip())
-
         try:
             loader_map = {
                 file: loader for file in flat_file_list
@@ -92,7 +85,6 @@ class wrap:
         except:
             raise Exception(
                 "Invalid file or loader name, please make sure to use the format <name>.<source_format>_<target_format>.<extension>")
-        print(loader_map) if debug_mode else None
         # clean output path
         if clean_output_path:
             print("Cleaning old files") if debug_mode else None
@@ -100,7 +92,7 @@ class wrap:
             # sleep(1)
 
         # run the loaders on the files
-        print(f"Map of files to processors: {loader_map}")
+        print(f"Map of files to processors: {loader_map}")  if debug_mode else None
         for file, loader in loader_map.items():
             print(f"Running {loader} on {file}") if debug_mode else None
             system(f"chmod +x {loader} || true")

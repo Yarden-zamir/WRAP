@@ -14,13 +14,11 @@ def _get_all_functions_in_module(module, allow_imports=False):  # should this be
     return [fun for fun in getmembers(module, isfunction) if
             not fun[0].startswith("_") and not fun[1].__module__.startswith("builtins")
             and (allow_imports or getmodule(fun[1]) == module_of_class or not getmodule(fun[1]))]
-    # return [getattr(module, attr) for attr in dir(module) if callable(getattr(module, attr))]
 
 
 def _get_all_classes_in_module(module, allow_imports=False):
     return [cls for cls in getmembers(module, isclass) if
             not cls[0].startswith("_") and
-            # check if class has callable methods
             any(_get_all_functions_in_module(cls[1], allow_imports=allow_imports)) and
             (allow_imports or getmodule(cls[1]) == module or not getmodule(cls[1]))]
 
@@ -38,7 +36,7 @@ def convert_return_to_print(func):
     @functools.wraps(func)
     def wrapper(*func_args, **func_kwargs):
         retval = func(*func_args, **func_kwargs)
-        print(retval)
+        print(retval) if retval else None
         return retval
 
     return wrapper
@@ -52,9 +50,9 @@ def _call_function(command):
 
 def call(command):
     if isfunction(command):
-        print(_call_function(command))
+        _call_function(command)
     elif isclass(command):
-        print(_call_class(command))
+        _call_class(command)
 
 
 class generic_typer_processor:
@@ -79,7 +77,6 @@ class generic_typer_processor:
 
         # get all functions in module
         functions = _get_all_functions_in_module(foo)
-
         # get all classes in module
         classes = _get_all_classes_in_module(foo)
 
