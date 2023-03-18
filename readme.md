@@ -17,9 +17,7 @@ wrap \
 - processors
 
 # Installation
-
-
-
-
-
-
+```bash
+brew install yarden-zamir/tap/wrap
+wrap install
+```
