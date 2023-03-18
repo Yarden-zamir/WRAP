@@ -11,16 +11,15 @@ wrap \
 ```
 
 ## Terminology
-- input folder
-- input files
-- wraps folder
+
+- inputs
 - wraps
 - processors
 
 # Installation
 
-## TODO
-- [ ] add to brew
-- [ ] add to pip
-- [ ] installs default processors and folders to user home ~/.wrap
-- [ ] option to add to .bashrc / .zshrc or prompt
+
+
+
+
+
