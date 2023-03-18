@@ -47,7 +47,7 @@ class wrap:
         if install_to_shell == shell.zsh:
             zshrc_path = Path("~/.zshrc").expanduser().resolve()
             wrap_script = f'\n# wrap\nexport PATH="{wrap_folder_path}/output:$PATH"' \
-                          f'\nwrap gen # uses defaults, run wrap gen --help for more info\n'
+                          f'\n(wrap gen &) # uses defaults, run wrap gen --help for more info\n'
             with open(zshrc_path, "r+") as f:
                 if wrap_script not in f.read():
                     f.write(wrap_script)
