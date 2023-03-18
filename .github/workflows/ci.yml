@@ -26,7 +26,7 @@ jobs:
     #        token: ${{ secrets.TOKEN }}
 
     - name: Release my project to my Homebrew tap
-      uses: Justintime50/homebrew-releaser@v1
+      uses: Justintime50/homebrew-releaser@v0.16.2
       with:
         homebrew_owner: Yarden-zamir
         homebrew_tap: tap
