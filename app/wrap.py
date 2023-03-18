@@ -4,6 +4,7 @@ import os
 import shutil
 import subprocess
 import sys
+import webbrowser
 from enum import Enum
 from os import getenv, environ, listdir, system
 from os.path import splitext, isdir
@@ -24,6 +25,12 @@ class shell(Enum):
 
 class wrap:
 
+    @staticmethod
+    def github():
+        """
+        open the wrap Github page
+        """
+        webbrowser.open("https://github.com/yarden-zamir/wrap")
     @staticmethod
     def install(wrap_folder: str = "~/.wrap", install_to_shell: shell = shell.zsh.value, install_examples: bool = True):
         """
