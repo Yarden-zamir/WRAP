@@ -37,8 +37,8 @@ jobs:
         depends_on:          |
                              "python@3.11"
         install:             |
-                             virtualenv_install_with_resources
                              bin.install "app"
+                             virtualenv_install_with_resources
         #            FileUtils.cp_r "base_processors/generic_argparse_processor.py", "wrap_generic_argparse_processor.py"
         #            bin.install "wrap_generic_argparse_processor.py"
         #            bin.install "base_processors"
