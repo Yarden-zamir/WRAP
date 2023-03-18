@@ -17,16 +17,16 @@ jobs:
       with:
         github_token: ${{ secrets.TOKEN }}
 
-    #    - name: Create a GitHub release
-    #      uses: ncipollo/release-action@v1
-    #      with:
-    #        tag:   ${{ steps.tag_version.outputs.new_tag }}
-    #        name:  Release ${{ steps.tag_version.outputs.new_tag }}
-    #        body:  ${{ steps.tag_version.outputs.changelog }}
-    #        token: ${{ secrets.TOKEN }}
+    - name: Create a GitHub release
+      uses: ncipollo/release-action@v1
+      with:
+        tag: ${{ steps.tag_version.outputs.new_tag }}
+        name: Release ${{ steps.tag_version.outputs.new_tag }}
+        body: ${{ steps.tag_version.outputs.changelog }}
+        token: ${{ secrets.TOKEN }}
 
     - name: Release my project to my Homebrew tap
-      uses: Justintime50/homebrew-releaser@v0.16.2
+      uses: Justintime50/homebrew-releaser@v0.15.0
       with:
         homebrew_owner: Yarden-zamir
         homebrew_tap: tap
