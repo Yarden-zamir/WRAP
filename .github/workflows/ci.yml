@@ -37,7 +37,6 @@ jobs:
         depends_on: |
           "python@3.11"
         install: |
-          virtualenv_install_with_resources
           libexec.install Dir["*"]
           bin.write_exec_script libexec/"wrap"
 
