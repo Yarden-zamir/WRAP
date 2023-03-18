@@ -7,6 +7,7 @@ from time import sleep
 
 import typer as typer
 from rich.traceback import install
+from requests import get
 
 # suppress self
 install(show_locals=False, extra_lines=0, )
@@ -17,11 +18,8 @@ class sugar_level(Enum):
     medium = "medium"
     high = "high"
 
-    # def __str__(self):
-    #     return self.value
 
-
-class cheese_type(Enum):
+class _cheese_type(Enum):
     cheddar = "cheddar"
     mozzarella = "mozzarella"
     feta = "feta"
@@ -43,8 +41,9 @@ class cheese_type(Enum):
 
 
 # print(DynamicEnum.foo.value)
-def give_cheese(person, sugar_level: sugar_level, amount: int = 0, cheese_type: cheese_type = cheese_type.cheddar,
-                should_give: bool = False, am_I_a_good_person=False, how_much_to_take_away: int = 0) -> object:
+def give_cheese(person, sugar_level: sugar_level, amount: int = 0,
+                cheese_type: _cheese_type = _cheese_type.cheddar.value,
+                should_give: bool = False, am_I_a_good_person=False, how_much_to_take_away: int = 0):
     """
     Give cheese to someone
     :param person: A person you like, or don't like that may get cheese
@@ -52,7 +51,8 @@ def give_cheese(person, sugar_level: sugar_level, amount: int = 0, cheese_type: 
     :param cheese_type: The type of cheese to give
     :param should_give: Should the cheese be given in the first place?
     """
-    return f"Here is {amount - how_much_to_take_away} of {cheese_type} cheese for {person} {'but you should not give it to them' if not should_give else ''}"
+    print(
+        f"Here is {amount - how_much_to_take_away} of {cheese_type} cheese for {person} {'but you should not give it to them' if not should_give else ''}")
 
 
 def get_current_time(area="Asia/Jerusalem"):
@@ -65,6 +65,7 @@ def get_current_time(area="Asia/Jerusalem"):
 
 def list_issues(repo=""):
     system(f"gh issue list {f'--repo {repo}' if repo else ''} ")
+
 
 def call_person(person):
     print(f"Calling {person}")
@@ -85,3 +86,20 @@ class yarden:
     @staticmethod
     def github():
         webbrowser.open("https://github.com/yarden-zamir")
+
+    @staticmethod
+    def email():
+        webbrowser.open("mailto:dev@yaden-zamir.com")
+
+    @staticmethod
+    def name():
+        print("Yarden Zamir")
+
+    class food:
+        @staticmethod
+        def cheese():
+            print("yarden likes cheese")
+
+        @staticmethod
+        def pizza():
+            print("yarden doesn't like pizza that much")
