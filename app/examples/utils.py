@@ -60,7 +60,7 @@ def get_current_time(area="Asia/Jerusalem"):
     from requests import get
     json = get("http://worldtimeapi.org/api/timezone/" + area).json()
     if "error" in json: raise Exception(json["error"])
-    print(datetime.strptime(json["datetime"], "%Y-%m-%dT%H:%M:%S.%f%z").isoformat())
+    return datetime.strptime(json["datetime"], "%Y-%m-%dT%H:%M:%S.%f%z").isoformat()
 
 
 def list_issues(repo=""):
@@ -70,11 +70,11 @@ def list_issues(repo=""):
 def call_person(person):
     print(f"Calling {person}")
     sleep(4)
-    print(f"Done calling {person}")
+    return f"Done calling {person}"
 
 
-def withargs(arg1, arg2):
-    return f"{arg1} and also {arg2}"
+def add_two(arg1: int, arg2: int):
+    return f"{arg1} and also {arg2} together make {arg1 + arg2}"
 
 
 class yarden:
