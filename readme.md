@@ -21,17 +21,16 @@ wrap install
 │ --help                                                       Show this message and exit.     │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────╯
 ╭─ Commands ───────────────────────────────────────────────────────────────────────────────────╮
-│ gen      The main function of wrap, this will process all files in the input path using the  │
-│          processors in the processor path and output the results to the output path          │
-│ install  Installs a default configuration for wrap using the base processors and some        │
-│          sensible defaults (wrap can be used without this) also imports examples :param      │
-│          install_to_shell: the shell to install to                                           │
+│ contributors  prints the wrap contributors                                                   │
+│ gen           The main function of wrap, this will process all files in the input path using │
+│               the processors in the processor path and output the results to the output path │
+│ github        open the wrap Github page                                                      │
+│ install       Installs a default configuration for wrap using the base processors and some   │
+│               sensible defaults (wrap can be used without this) also imports examples :param │
+│               install_to_shell: the shell to install to                                      │
+│ issue         creates a new issue on the wrap Github page                                    │
+│ license       prints the wrap license                                                        │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────╯
-
-
-
-
-
 ```
 
 ## Terminology

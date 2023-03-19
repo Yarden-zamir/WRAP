@@ -12,6 +12,8 @@ from pathlib import Path
 from shutil import which
 from time import sleep
 
+from requests import get
+
 
 class shell(Enum):
     false = "False"
@@ -23,14 +25,34 @@ class shell(Enum):
         return self.value
 
 
+repo = "https://github.com/Yarden-zamir/WRAP"
 class wrap:
-
+    @staticmethod
+    def issue():
+        """
+        creates a new issue on the wrap Github page
+        """
+        webbrowser.open(f"{repo}/issues/new")
     @staticmethod
     def github():
         """
         open the wrap Github page
         """
-        webbrowser.open("https://github.com/yarden-zamir/wrap")
+        webbrowser.open(f"{repo}")
+
+    @staticmethod
+    def license():
+        """
+        prints the wrap license
+        """
+        return get(f"{repo}/main/LICENSE.md").text
+
+    @staticmethod
+    def contributors():
+        """
+        prints the wrap contributors
+        """
+        webbrowser.open(f"{repo}/graphs/contributors")
     @staticmethod
     def install(wrap_folder: str = "~/.wrap", install_to_shell: shell = shell.zsh.value, install_examples: bool = True):
         """
