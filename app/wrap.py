@@ -48,7 +48,7 @@ class wrap:
         """
         prints current version of the app
         """
-        return open("VERSION", "r").read()
+        return open(os.path.join(os.path.dirname(__file__), '..', 'VERSION')).read().strip()
 
     @staticmethod
     def license():
