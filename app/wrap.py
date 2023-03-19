@@ -32,35 +32,45 @@ class wrap:
     @staticmethod
     def issue():
         """
-        creates a new issue on the wrap Github page
+        Creates a new issue on the wrap Github page
         """
         webbrowser.open(f"{repo}/issues/new")
 
     @staticmethod
     def github():
         """
-        open the wrap Github page
+        Open the wrap Github page
         """
         webbrowser.open(f"{repo}")
 
     @staticmethod
     def version():
         """
-        prints current version of the app
+        Prints current version of the app
         """
-        return open(os.path.join(os.path.dirname(__file__), '..', 'VERSION')).read().strip()
+        try:
+            version = "v" + open(os.path.join(os.path.dirname(__file__), '..', 'VERSION')).read().strip()
+        except FileNotFoundError:
+            version = "unknown"
+
+        try:
+            latest_version = get(f"{repo}/releases/latest").url.split("/")[-1]
+        except Exception:
+            latest_version = "unknown"
+        return f"wrap (local) : {version}\n" \
+               f"wrap (github): {latest_version} {'' if version == latest_version or latest_version == 'unknown' else ' (update available)'}"
 
     @staticmethod
     def license():
         """
-        prints the wrap license
+        Prints the wrap license
         """
         return get(f"{repo}/main/LICENSE.md").text
 
     @staticmethod
     def contributors():
         """
-        prints the wrap contributors
+        Prints the wrap contributors
         """
         webbrowser.open(f"{repo}/graphs/contributors")
 
