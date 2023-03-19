@@ -123,7 +123,7 @@ class wrap:
             processor_path: str = __file__.replace("wrap.py", "generic_typer_processor.py"),
             clean_output_path: bool = True,
             debug_mode: bool = False,
-            install_completions_for_wraps: shell = shell.false,
+            install_completions_for_wraps: shell = shell.false.value,
     ):
         """
         The main function of wrap, this will process all files in the input path using the processors in the
