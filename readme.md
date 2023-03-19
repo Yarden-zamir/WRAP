@@ -21,6 +21,8 @@ wrap install
 │ --help                                                       Show this message and exit.     │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────╯
 ╭─ Commands ───────────────────────────────────────────────────────────────────────────────────╮
+│ contribute    Clone the wrap repository to the given folder for local development and        │
+│               optionally create a new branch                                                 │
 │ contributors  prints the wrap contributors                                                   │
 │ gen           The main function of wrap, this will process all files in the input path using │
 │               the processors in the processor path and output the results to the output path │

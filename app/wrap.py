@@ -53,6 +53,19 @@ class wrap:
         prints the wrap contributors
         """
         webbrowser.open(f"{repo}/graphs/contributors")
+
+    @staticmethod
+    def contribute(folder, new_branch: str = "", description: str = ""):
+        """
+        Clone the wrap repository to the given folder for local development and optionally create a new branch
+        """
+        if not which("git"):
+            return "git is not installed, please install git and try again"
+
+        subprocess.run(["git", "clone", repo, folder])
+        if new_branch:
+            subprocess.run(["git", "checkout", "-b", new_branch], cwd=folder)
+
     @staticmethod
     def install(wrap_folder: str = "~/.wrap", install_to_shell: shell = shell.zsh.value, install_examples: bool = True):
         """
@@ -121,7 +134,7 @@ class wrap:
             # sleep(1)
 
         # run the loaders on the files
-        print(f"Map of files to processors: {loader_map}")  if debug_mode else None
+        print(f"Map of files to processors: {loader_map}") if debug_mode else None
         for file, loader in loader_map.items():
             print(f"Running {loader} on {file}") if debug_mode else None
             system(f"chmod +x {loader} || true")
