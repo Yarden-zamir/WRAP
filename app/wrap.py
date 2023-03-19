@@ -55,16 +55,19 @@ class wrap:
         webbrowser.open(f"{repo}/graphs/contributors")
 
     @staticmethod
-    def contribute(folder, new_branch: str = "", description: str = ""):
+    def contribute(folder = "~/.wrap/development", new_branch: str = "", description: str = ""):
         """
         Clone the wrap repository to the given folder for local development and optionally create a new branch
         """
         if not which("git"):
             return "git is not installed, please install git and try again"
-
+        folder = Path(folder).expanduser().resolve()
+        os.mkdir(folder)
+        os.chdir(folder)
         subprocess.run(["git", "clone", repo, folder])
         if new_branch:
             subprocess.run(["git", "checkout", "-b", new_branch], cwd=folder)
+        return f"wrap cloned to {folder}, you can now start developing"
 
     @staticmethod
     def install(wrap_folder: str = "~/.wrap", install_to_shell: shell = shell.zsh.value, install_examples: bool = True):
