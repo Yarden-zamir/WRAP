@@ -43,7 +43,7 @@ def convert_return_to_print(func):
 
 
 def _call_function(command):
-    app = typer.Typer(name=command.__name__, no_args_is_help=True, chain=True, )
+    app = typer.Typer(name=command.__name__, no_args_is_help=True, chain=True)
     app.command()(convert_return_to_print(command))
     app()
 

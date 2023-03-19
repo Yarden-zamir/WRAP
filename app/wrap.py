@@ -23,7 +23,7 @@ class shell(Enum):
         return self.value
 
 
-repo = "https://github.com/Yarden-zamir/WRAP"
+repo = "Yarden-zamir/WRAP"
 
 
 class wrap:
@@ -32,14 +32,14 @@ class wrap:
         """
         Creates a new issue on the wrap Github page
         """
-        webbrowser.open(f"{repo}/issues/new")
+        webbrowser.open(f"https://github.com/{repo}/issues/new")
 
     @staticmethod
     def github():
         """
         Open the wrap Github page
         """
-        webbrowser.open(f"{repo}")
+        webbrowser.open(f"https://github.com/{repo}")
 
     @staticmethod
     def version():
@@ -52,7 +52,7 @@ class wrap:
             version = "unknown"
 
         try:
-            latest_version = get(f"{repo}/releases/latest").url.split("/")[-1]
+            latest_version = get(f"https://github.com/{repo}/releases/latest").url.split("/")[-1]
         except Exception:
             latest_version = "unknown"
         return f"wrap (local) : {version}\n" \
@@ -63,14 +63,14 @@ class wrap:
         """
         Prints the wrap license
         """
-        return get(f"{repo}/main/LICENSE.md").text
+        return get(f"https://raw.githubusercontent.com/{repo}/main/LICENSE.md").text
 
     @staticmethod
     def contributors():
         """
         Prints the wrap contributors
         """
-        webbrowser.open(f"{repo}/graphs/contributors")
+        webbrowser.open(f"https://github.com/{repo}/graphs/contributors")
 
     @staticmethod
     def contribute(folder="~/.wrap/development", new_branch: str = "", description: str = ""):
@@ -123,6 +123,7 @@ class wrap:
             processor_path: str = __file__.replace("wrap.py", "generic_typer_processor.py"),
             clean_output_path: bool = True,
             debug_mode: bool = False,
+            install_completions_for_wraps: shell = shell.false,
     ):
         """
         The main function of wrap, this will process all files in the input path using the processors in the
@@ -162,3 +163,10 @@ class wrap:
             system(f"chmod +x {loader} || true")
             # print(f"{loader} gen {file} {output_path} {'--debug_mode' if debug_mode else ''}")
             system(f"{loader} gen {file} {output_path} {'--debug_mode' if debug_mode else ''}")
+
+        if install_completions_for_wraps != shell.false:
+            for program in os.listdir(output_path):
+                # only run on executables
+                if program.count("."):
+                    continue
+                system(f"({program} --install-completion {install_completions_for_wraps} &) || true")

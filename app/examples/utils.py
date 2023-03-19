@@ -87,9 +87,14 @@ class yarden:
     def github():
         webbrowser.open("https://github.com/yarden-zamir")
 
+    class email_types(Enum):
+        dev = "dev"
+        work = "work"
+        personal = "personal"
+
     @staticmethod
-    def email():
-        webbrowser.open("mailto:dev@yaden-zamir.com")
+    def email(type: email_types):
+        webbrowser.open(f"mailto:{type.value}@yarden-zamir.com")
 
     @staticmethod
     def name():
