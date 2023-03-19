@@ -26,6 +26,8 @@ class shell(Enum):
 
 
 repo = "https://github.com/Yarden-zamir/WRAP"
+
+
 class wrap:
     @staticmethod
     def issue():
@@ -33,12 +35,20 @@ class wrap:
         creates a new issue on the wrap Github page
         """
         webbrowser.open(f"{repo}/issues/new")
+
     @staticmethod
     def github():
         """
         open the wrap Github page
         """
         webbrowser.open(f"{repo}")
+
+    @staticmethod
+    def version():
+        """
+        prints current version of the app
+        """
+        return open("VERSION", "r").read()
 
     @staticmethod
     def license():
@@ -55,7 +65,7 @@ class wrap:
         webbrowser.open(f"{repo}/graphs/contributors")
 
     @staticmethod
-    def contribute(folder = "~/.wrap/development", new_branch: str = "", description: str = ""):
+    def contribute(folder="~/.wrap/development", new_branch: str = "", description: str = ""):
         """
         Clone the wrap repository to the given folder for local development and optionally create a new branch
         """

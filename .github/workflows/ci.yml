@@ -47,6 +47,7 @@ jobs:
         install: |
           libexec.install Dir["*"]
           bin.write_exec_script libexec/"wrap"
+          (libexec/"VERSION").write version
         post_install: |
           ohai "To get started, run:"
           puts "  wrap install"

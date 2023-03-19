@@ -1,7 +1,6 @@
-
-example1/output/
 *.iml
 *.xml
 *.pyc
 local_history.patch
 .mypy_cache/
+VERSION
