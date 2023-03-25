@@ -16,3 +16,6 @@ urllib3 = '1.26.15'
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[project.scripts]
+wrap = "app.main:__main__"
