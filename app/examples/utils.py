@@ -92,20 +92,11 @@ def ask_open_ai(question, api_key=None, model="text-davinci-003", temperature=0.
     return response.choices.pop().text
 
 
-def explain(command):
-    import openai
-    openai.api_key = os.getenv("OPENAI_API_KEY")
-
-    response = openai.Completion.create(
-        model="text-davinci-003",
-        prompt=f"Explain the following shell command in a very condescending way using heavy hood slang\n\n{command}\n\n",
-        temperature=0.7,
-        max_tokens=360,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0
-    )
-    return response.choices.pop().text.strip()
+def explain(command, api_key=None, model="text-davinci-003", temperature=0.7,
+            max_tokens=360, top_p=1, frequency_penalty=0, presence_penalty=0):
+    return ask_open_ai(
+        f"Explain the following shell command in a very condescending way using heavy hood slang\n\n{command}\n\n",
+        api_key, model, temperature, max_tokens, top_p, frequency_penalty, presence_penalty)
 
 
 class yarden:
