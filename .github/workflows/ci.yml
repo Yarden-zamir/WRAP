@@ -48,7 +48,6 @@ jobs:
           --force \
           --url=${{ github.event.repository.html_url }}/archive/${{ steps.tag_version.outputs.new_tag }}.tar.gz \
           --sha256=$(curl -L ${{ github.event.repository.html_url }}/archive/${{ steps.tag_version.outputs.new_tag }}.tar.gz | shasum -a 256 | cut -d ' ' -f 1) \
-          --tag=${{ steps.tag_version.outputs.new_tag }} \
           ${{ github.event.repository.name }}
       env:
         HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.TOKEN }}
