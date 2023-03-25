@@ -34,13 +34,6 @@ jobs:
         token: ${{ secrets.TOKEN }}
 
 
-#    - name: Release my project to homebrew
-#      uses: dawidd6/action-homebrew-bump-formula@v3
-#      with:
-#        token: ${{ secrets.TOKEN }}
-#        tap: ${{ github.event.repository.owner.login }}/tap
-#        formula: ${{ github.event.repository.name }}
-#        tag: ${{ steps.tag_version.outputs.new_tag }}
     - name: Release my project to homebrew
       run: |
         brew tap ${{ github.event.repository.owner.login }}/tap

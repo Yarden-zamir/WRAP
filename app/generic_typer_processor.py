@@ -7,6 +7,7 @@ from os import system
 from pathlib import Path
 
 import typer
+from typer.rich_utils import MarkupMode
 
 
 def _get_all_functions_in_module(module, allow_imports=False):  # should this be get all functions in class?
@@ -43,7 +44,7 @@ def convert_return_to_print(func):
 
 
 def _call_function(command):
-    app = typer.Typer(name=command.__name__, no_args_is_help=True, chain=True)
+    app = typer.Typer(name=command.__name__, no_args_is_help=True, chain=True, rich_markup_mode=MarkupMode.HTML)
     app.command()(convert_return_to_print(command))
     app()
 
