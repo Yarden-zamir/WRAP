@@ -149,7 +149,8 @@ class wrap:
             }
         except:
             raise Exception(
-                "Invalid file or loader name, please make sure to use the format <name>.<source_format>_<target_format>.<extension>")
+                "Invalid file or loader name, please make sure to use the format "
+                "<name>.<source_format>_<target_format>.<extension>")
         # clean output path
         if clean_output_path:
             print("Cleaning old files") if debug_mode else None
