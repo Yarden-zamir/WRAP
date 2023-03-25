@@ -43,7 +43,9 @@ jobs:
 #        tag: ${{ steps.tag_version.outputs.new_tag }}
     - name: Release my project to homebrew
       run: |
+        brew tap ${{ github.event.repository.owner.login }}/tap
         brew bump-formula-pr \
+          --force
           --url=${{ github.event.repository.html_url }}/archive/${{ steps.tag_version.outputs.new_tag }}.tar.gz ${{ github.event.repository.owner.login }}/tap/${{ github.event.repository.name }}
           --sha256=$(curl -L ${{ github.event.repository.html_url }}/archive/${{ steps.tag_version.outputs.new_tag }}.tar.gz | shasum -a 256 | cut -d ' ' -f 1)
           --version=${{ steps.tag_version.outputs.new_tag }}
