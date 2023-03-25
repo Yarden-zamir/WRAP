@@ -6,11 +6,11 @@ from os import system
 from time import sleep
 
 import typer as typer
-from rich.traceback import install
 from requests import get
+from rich import traceback
 
 # suppress self
-install(show_locals=False, extra_lines=0, )
+traceback.install(extra_lines=0)
 
 
 class sugar_level(Enum):
@@ -57,7 +57,6 @@ def give_cheese(person, sugar_level: sugar_level, amount: int = 0,
 
 def get_current_time(area="Asia/Jerusalem"):
     from datetime import datetime
-    from requests import get
     json = get("http://worldtimeapi.org/api/timezone/" + area).json()
     if "error" in json: raise Exception(json["error"])
     return datetime.strptime(json["datetime"], "%Y-%m-%dT%H:%M:%S.%f%z").isoformat()
@@ -70,11 +69,43 @@ def list_issues(repo=""):
 def call_person(person):
     print(f"Calling {person}")
     sleep(4)
-    return f"Done calling {person}"
+    return f"{person} Didn't answer, they must not like you"
 
 
 def add_two(arg1: int, arg2: int):
     return f"{arg1} and also {arg2} together make {arg1 + arg2}"
+
+
+def ask_open_ai(question, api_key=None, model="text-davinci-003", temperature=0.7,
+                max_tokens=360, top_p=1, frequency_penalty=0, presence_penalty=0):
+    import openai
+    openai.api_key = api_key or os.getenv("OPENAI_API_KEY")
+    response = openai.Completion.create(
+        model=model,
+        prompt=f"{question}\n\n",
+        temperature=temperature,
+        max_tokens=max_tokens,
+        top_p=top_p,
+        frequency_penalty=frequency_penalty,
+        presence_penalty=presence_penalty
+    )
+    return response.choices.pop().text
+
+
+def explain(command):
+    import openai
+    openai.api_key = os.getenv("OPENAI_API_KEY")
+
+    response = openai.Completion.create(
+        model="text-davinci-003",
+        prompt=f"Explain the following shell command in a very condescending way using heavy hood slang\n\n{command}\n\n",
+        temperature=0.7,
+        max_tokens=360,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+    return response.choices.pop().text.strip()
 
 
 class yarden:
