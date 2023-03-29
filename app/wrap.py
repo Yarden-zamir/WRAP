@@ -137,8 +137,9 @@ class wrap:
             print(flat_file_list) if debug_mode else None
             print(flat_loader_list) if debug_mode else None
         except FileNotFoundError:
-            raise FileNotFoundError("Input path or processor path not found")
-
+            if debug_mode:
+                raise FileNotFoundError("Input path or processor path not found")
+            else : exit(0)
         try:
             loader_map = {
                 file: loader for file in flat_file_list
