@@ -96,7 +96,7 @@ def ask_open_ai(question, api_key=None, model="text-davinci-003", temperature:fl
 def explain(command, api_key=None, model="text-davinci-003", temperature:float=0.7,
                 max_tokens: int = 300, top_p:float=1, frequency_penalty:float=0, presence_penalty:float=0):
     return ask_open_ai(
-        f"Explain the following shell command in a very condescending way using heavy hood slang\n\n{command}\n\n",
+        f"Explain the following shell command in a very condescending way using heavy hood slang. Be as funny as possible\n\n{command}\n\n",
         api_key, model, temperature, max_tokens, top_p, frequency_penalty, presence_penalty)
 
 
