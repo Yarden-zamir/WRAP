@@ -33,7 +33,11 @@ jobs:
         body: ${{ steps.tag_version.outputs.changelog }}
         token: ${{ secrets.TOKEN }}
 
-
+    - name: Cache Homebrew
+      uses: actions/cache@v2
+      with:
+        path: /usr/local/Homebrew
+        key: ${{ runner.os }}-homebrew
     - name: Release my project to homebrew
       run: |
         brew tap ${{ github.event.repository.owner.login }}/tap
@@ -42,8 +46,8 @@ jobs:
           --no-audit \
           --url=${{ github.event.repository.html_url }}/archive/${{ steps.tag_version.outputs.new_tag }}.tar.gz \
           --sha256=$(curl -L ${{ github.event.repository.html_url }}/archive/${{ steps.tag_version.outputs.new_tag }}.tar.gz | shasum -a 256 | cut -d ' ' -f 1) \
-          --message="Update ${{ github.event.repository.name }} to ${{ steps.tag_version.outputs.changelog }}.
-          ---
+          --message="Updates ${{ github.event.repository.name }} 
+          ${{ steps.tag_version.outputs.changelog }}
           /auto-merge" \
           ${{ github.event.repository.name }}
       env:
