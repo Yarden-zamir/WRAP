@@ -1,8 +1,9 @@
-
-https://github.com/Yarden-zamir/homebrew-tap
 # Concept 
 ...
 ## Installation
+
+Homebrew tap: https://github.com/Yarden-zamir/homebrew-tap
+
 ```bash
 brew install yarden-zamir/tap/wrap
 wrap install
