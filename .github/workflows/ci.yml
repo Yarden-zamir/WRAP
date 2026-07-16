@@ -84,6 +84,9 @@ jobs:
 
   homebrew:
     needs: update
+    permissions:
+      contents: write
+      pull-requests: write
     uses: Yarden-zamir/homebrew-tap/.github/workflows/sync-formula.yml@main
     with:
       formula: wrap
